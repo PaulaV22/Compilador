@@ -5,13 +5,16 @@ import AnalizadorLexico.AnalizadorLexico;
 
 
 public class AS8 extends AccionSemantica{
-	//Reconoce el Linteger y verifica rango, sino llama a error
-
+	//Reconoce /n en 
 	
-	public void ejecutar(String buffer, char c, AnalizadorLexico AL) {
-		if (true) { //VER COMO PONEMOS EL /N      //Verificamos que venga un /n porque podria venir un d,l,' '
-			String cadena = buffer.substring(0, buffer.length()-2); //fijarse si es -2 o -3 //para sacarle el /n	
-			buffer=cadena; 
+	public int ejecutar(StringBuffer buffer, char c, AnalizadorLexico AL) {
+		if (c == '\n' ) {
+			String aux = buffer.substring(0, buffer.length()-1);
+			buffer = new StringBuffer(aux);
 		}
+		else {
+			buffer.append(c);
+		}
+		return 0;
 	}
 }

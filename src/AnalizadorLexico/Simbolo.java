@@ -19,6 +19,7 @@ public class Simbolo {
 		this.valor = null;
 		this.esPR = esPR;
 	}
+	
 	public int getTipo() {
 		return tipo;
 	}
@@ -31,4 +32,9 @@ public class Simbolo {
 	public void setValor(String valor) {
 		this.valor = valor;
 	}	
+	
+	public void print () {
+		System.out.println("tipo: " + tipo + " valor: " + valor + " esPr: " + esPR);
+		System.out.println();
+	}
 }

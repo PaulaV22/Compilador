@@ -1,12 +1,13 @@
 package AccionesSemanticas;
+
 import AnalizadorLexico.AccionSemantica;
 import AnalizadorLexico.AnalizadorLexico;
 
-public class AS1 extends AccionSemantica{
-	//Inicializa el buffer y agrega c a el mismo.
-	@Override
+
+public class AS10 extends AccionSemantica{
+	//sumo al contador de linea
 	public int ejecutar(StringBuffer buffer, char c, AnalizadorLexico AL) {
-		buffer.append(c);
+		AL.AumentarLinea();	
 		return 0;
 	}
 }

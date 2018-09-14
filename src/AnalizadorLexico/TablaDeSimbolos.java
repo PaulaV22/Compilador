@@ -3,46 +3,115 @@ import java.util.Hashtable;
 
 public class TablaDeSimbolos {
 
-	private Hashtable<String, Simbolo> ts;
+	private Hashtable<StringBuffer, Simbolo> ts;
 	
 	public TablaDeSimbolos() {
+		this.ts = new Hashtable<StringBuffer, Simbolo>();
 		ts.clear();
 		cargarTabla();
 	}
 	
 	private void cargarTabla () {
 		//Carga la tabla con las palabras reservadas y los lexemas iniciales
-		Simbolo sID = new Simbolo(300, null);
-		ts.put("id", sID); 
+		Simbolo sID = new Simbolo(282, false); //no podia ser 256
+		ts.put(new StringBuffer("id"), sID); 
 		
-		Simbolo sCTE = new Simbolo(301, null);
-		ts.put("cte", sCTE);
+		Simbolo sCTE = new Simbolo(257, false);
+		ts.put(new StringBuffer("cte"), sCTE);
 		
-		Simbolo sIF = new Simbolo(310, true);
-		ts.put("if", sIF);
+		Simbolo sIF = new Simbolo(258, true);
+		ts.put(new StringBuffer("if"), sIF);
 		
-		Simbolo sELSE = new Simbolo(311, true);
-		ts.put("else", sELSE);
+		Simbolo sELSE = new Simbolo(259, true);
+		ts.put(new StringBuffer("else"), sELSE);
 		
-		Simbolo sENDIF = new Simbolo(312,true);
-		ts.put("end_if", sENDIF);
+		Simbolo sENDIF = new Simbolo(260,true);
+		ts.put(new StringBuffer("end_if"), sENDIF);
 		
-		Simbolo sPRINT = new Simbolo(313,true);
-		ts.put("print", sPRINT);
+		Simbolo sPRINT = new Simbolo(261,true);
+		ts.put(new StringBuffer("print"), sPRINT);
 		
-		//seguir
+		Simbolo sLINTEGER = new Simbolo(262,true);
+		ts.put(new StringBuffer("linteger"), sLINTEGER);
 		
+		Simbolo sDOUBLE = new Simbolo(263,true);
+		ts.put(new StringBuffer("double"), sDOUBLE);
+		
+		Simbolo sLOOP = new Simbolo(264,true);
+		ts.put(new StringBuffer("loop"), sLOOP);
+		
+		Simbolo sUNTIL = new Simbolo(265,true);
+		ts.put(new StringBuffer("until"), sUNTIL);
+		
+		Simbolo sLET = new Simbolo(266,true);
+		ts.put(new StringBuffer("let"), sLET);
+		
+		Simbolo sMayorIgual = new Simbolo(267,false);
+		ts.put(new StringBuffer(">="), sMayorIgual);
+				
+		Simbolo sMenorIgual = new Simbolo(268,false);
+		ts.put(new StringBuffer("<="), sMenorIgual);
+		
+		Simbolo sMAYOR = new Simbolo(269,false);
+		ts.put(new StringBuffer(">"), sMAYOR);
+		
+		Simbolo sMENOR = new Simbolo(270,false);
+		ts.put(new StringBuffer("<"), sMENOR);
+		
+		Simbolo sIGUAL = new Simbolo(271,false);
+		ts.put(new StringBuffer("="), sIGUAL);
+		
+		Simbolo sDISTINTO = new Simbolo(272,false);
+		ts.put(new StringBuffer("=!"), sDISTINTO);
+		
+		Simbolo sASIGNACION = new Simbolo(273,false);
+		ts.put(new StringBuffer(":="), sASIGNACION);
+		
+		Simbolo sPARENTESIS1 = new Simbolo(274,false);
+		ts.put(new StringBuffer("("), sPARENTESIS1);
+		
+		Simbolo sPARENTESIS2 = new Simbolo(275,false);
+		ts.put(new StringBuffer(")"), sPARENTESIS2);
+		
+		Simbolo sLLAVE1 = new Simbolo(276,false);
+		ts.put(new StringBuffer("{"), sLLAVE1);
+		
+		Simbolo sLLAVE2 = new Simbolo(277,false);
+		ts.put(new StringBuffer("}"), sLLAVE2);
+		
+		Simbolo sPUNTOCOMA = new Simbolo(278,false);
+		ts.put(new StringBuffer(";"), sPUNTOCOMA);
+		
+		Simbolo sCOMA = new Simbolo(279,false);
+		ts.put(new StringBuffer(","), sCOMA);
+		
+		Simbolo sMENOS = new Simbolo(278,false);
+		ts.put(new StringBuffer("-"), sMENOS);
+		
+		Simbolo sPOR = new Simbolo(279,false);
+		ts.put(new StringBuffer("*"), sPOR);
+		
+		Simbolo sDIV = new Simbolo(280,false);
+		ts.put(new StringBuffer("/"), sDIV);
+		
+		Simbolo sMAS = new Simbolo(281,false);
+		ts.put(new StringBuffer("+"), sMAS);
+		
+
+		Simbolo sFin = new Simbolo(283,false);
+		ts.put(new StringBuffer("fin de archivo"), sFin);
 	}
 	
-	public void agregarSimbolo(String token , Simbolo simb) { //agrego tokens
-		ts.put(token, simb);
+	public void agregarSimbolo(StringBuffer buffer , Simbolo simb) { //agrego tokens
+		ts.put(buffer, simb);
 	}
 	
-	public Simbolo obtenerSimbolo(String token) { // Obtenes el token entero
-		return ts.get(token);
+	public Simbolo obtenerSimbolo(StringBuffer buffer) { // Obtenes el token entero
+		return ts.get(buffer);
 	}
 	
-	public boolean perteneceTS(String token){ //verificar existencia en ella
-		return ts.contains(token);
+	public boolean perteneceTS(StringBuffer buffer){ //verificar existencia en ella
+		return ts.contains(buffer);
 	}
+	
 }
