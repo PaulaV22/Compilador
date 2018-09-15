@@ -5,8 +5,15 @@ import AnalizadorLexico.AnalizadorLexico;
 public class AS2 extends AccionSemantica{
 	//Agrega caracter al string
 	@Override
-	public int ejecutar(StringBuffer buffer, char c, AnalizadorLexico AL) {
-		buffer.append(c);
+	public int ejecutar(char c, AnalizadorLexico AL) {
+		String buffer = AL.getBuffer();
+		buffer = buffer + c;
+		AL.setBuffer(buffer);
 		return 0;
 	}
+	
+	public void getNombre() {
+		System.out.println("AS 2 //Agrega caracter al string ");
+	}
+	
 }

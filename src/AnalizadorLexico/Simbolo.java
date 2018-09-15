@@ -34,6 +34,8 @@ public class Simbolo {
 	}	
 	
 	public void print () {
+		System.out.println("entro a ptrint");
+
 		System.out.println("tipo: " + tipo + " valor: " + valor + " esPr: " + esPR);
 		System.out.println();
 	}

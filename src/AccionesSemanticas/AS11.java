@@ -4,7 +4,11 @@ import AnalizadorLexico.AnalizadorLexico;
 
 public class AS11 extends AccionSemantica{
 	//No action
-	public int ejecutar(StringBuffer buffer, char c, AnalizadorLexico AL) {
+	public int ejecutar(char c, AnalizadorLexico AL) {
 		return 0;
+	}
+	
+	public void getNombre() {
+		System.out.println("AS 11 //Nada ");
 	}
 }

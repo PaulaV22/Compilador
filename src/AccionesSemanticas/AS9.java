@@ -5,11 +5,12 @@ import AnalizadorLexico.AnalizadorLexico;
 
 
 public class AS9 extends AccionSemantica{
-	//FinString (quito la primer comilla y omito la final
+	//FinString (quito la primer comilla y omito la final)
 	
-	public int ejecutar(StringBuffer buffer, char c, AnalizadorLexico AL) {
+	public int ejecutar(char c, AnalizadorLexico AL) {
+		String buffer = AL.getBuffer();
 		String aux = buffer.substring(1, buffer.length());
-		buffer = new StringBuffer(aux); 
-			return 0;
+		AL.setBuffer(aux);
+		return 0;
 	}
 }

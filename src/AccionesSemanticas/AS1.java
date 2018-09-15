@@ -5,8 +5,14 @@ import AnalizadorLexico.AnalizadorLexico;
 public class AS1 extends AccionSemantica{
 	//Inicializa el buffer y agrega c a el mismo.
 	@Override
-	public int ejecutar(StringBuffer buffer, char c, AnalizadorLexico AL) {
-		buffer.append(c);
+	public int ejecutar(char c, AnalizadorLexico AL) {
+		String buffer = "";
+		buffer = buffer + c;
+		AL.setBuffer(buffer);
 		return 0;
+	}
+	
+	public void getNombre() {
+		System.out.println("AS 1 	//Inicializa el buffer y agrega c");
 	}
 }

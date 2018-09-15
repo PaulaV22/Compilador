@@ -3,10 +3,10 @@ import java.util.Hashtable;
 
 public class TablaDeSimbolos {
 
-	private Hashtable<StringBuffer, Simbolo> ts;
+	private Hashtable<String, Simbolo> ts;
 	
 	public TablaDeSimbolos() {
-		this.ts = new Hashtable<StringBuffer, Simbolo>();
+		this.ts = new Hashtable<String, Simbolo>();
 		ts.clear();
 		cargarTabla();
 	}
@@ -14,104 +14,106 @@ public class TablaDeSimbolos {
 	private void cargarTabla () {
 		//Carga la tabla con las palabras reservadas y los lexemas iniciales
 		Simbolo sID = new Simbolo(282, false); //no podia ser 256
-		ts.put(new StringBuffer("id"), sID); 
+		ts.put(new String("id"), sID); 
 		
 		Simbolo sCTE = new Simbolo(257, false);
-		ts.put(new StringBuffer("cte"), sCTE);
+		ts.put(new String("cte"), sCTE);
 		
 		Simbolo sIF = new Simbolo(258, true);
-		ts.put(new StringBuffer("if"), sIF);
+		ts.put(new String("if"), sIF);
 		
 		Simbolo sELSE = new Simbolo(259, true);
-		ts.put(new StringBuffer("else"), sELSE);
+		ts.put(new String("else"), sELSE);
 		
 		Simbolo sENDIF = new Simbolo(260,true);
-		ts.put(new StringBuffer("end_if"), sENDIF);
+		ts.put(new String("end_if"), sENDIF);
 		
 		Simbolo sPRINT = new Simbolo(261,true);
-		ts.put(new StringBuffer("print"), sPRINT);
+		ts.put(new String("print"), sPRINT);
 		
 		Simbolo sLINTEGER = new Simbolo(262,true);
-		ts.put(new StringBuffer("linteger"), sLINTEGER);
+		ts.put(new String("linteger"), sLINTEGER);
 		
 		Simbolo sDOUBLE = new Simbolo(263,true);
-		ts.put(new StringBuffer("double"), sDOUBLE);
+		ts.put(new String("double"), sDOUBLE);
 		
 		Simbolo sLOOP = new Simbolo(264,true);
-		ts.put(new StringBuffer("loop"), sLOOP);
+		ts.put(new String("loop"), sLOOP);
 		
 		Simbolo sUNTIL = new Simbolo(265,true);
-		ts.put(new StringBuffer("until"), sUNTIL);
+		ts.put(new String("until"), sUNTIL);
 		
 		Simbolo sLET = new Simbolo(266,true);
-		ts.put(new StringBuffer("let"), sLET);
+		ts.put(new String("let"), sLET);
 		
 		Simbolo sMayorIgual = new Simbolo(267,false);
-		ts.put(new StringBuffer(">="), sMayorIgual);
+		ts.put(new String(">="), sMayorIgual);
 				
 		Simbolo sMenorIgual = new Simbolo(268,false);
-		ts.put(new StringBuffer("<="), sMenorIgual);
+		ts.put(new String("<="), sMenorIgual);
 		
 		Simbolo sMAYOR = new Simbolo(269,false);
-		ts.put(new StringBuffer(">"), sMAYOR);
+		ts.put(new String(">"), sMAYOR);
 		
 		Simbolo sMENOR = new Simbolo(270,false);
-		ts.put(new StringBuffer("<"), sMENOR);
+		ts.put(new String("<"), sMENOR);
 		
 		Simbolo sIGUAL = new Simbolo(271,false);
-		ts.put(new StringBuffer("="), sIGUAL);
+		ts.put(new String("="), sIGUAL);
 		
 		Simbolo sDISTINTO = new Simbolo(272,false);
-		ts.put(new StringBuffer("=!"), sDISTINTO);
+		ts.put(new String("=!"), sDISTINTO);
 		
 		Simbolo sASIGNACION = new Simbolo(273,false);
-		ts.put(new StringBuffer(":="), sASIGNACION);
+		ts.put(new String(":="), sASIGNACION);
 		
 		Simbolo sPARENTESIS1 = new Simbolo(274,false);
-		ts.put(new StringBuffer("("), sPARENTESIS1);
+		ts.put(new String("("), sPARENTESIS1);
 		
 		Simbolo sPARENTESIS2 = new Simbolo(275,false);
-		ts.put(new StringBuffer(")"), sPARENTESIS2);
+		ts.put(new String(")"), sPARENTESIS2);
 		
 		Simbolo sLLAVE1 = new Simbolo(276,false);
-		ts.put(new StringBuffer("{"), sLLAVE1);
+		ts.put(new String("{"), sLLAVE1);
 		
 		Simbolo sLLAVE2 = new Simbolo(277,false);
-		ts.put(new StringBuffer("}"), sLLAVE2);
+		ts.put(new String("}"), sLLAVE2);
 		
 		Simbolo sPUNTOCOMA = new Simbolo(278,false);
-		ts.put(new StringBuffer(";"), sPUNTOCOMA);
+		ts.put(new String(";"), sPUNTOCOMA);
 		
 		Simbolo sCOMA = new Simbolo(279,false);
-		ts.put(new StringBuffer(","), sCOMA);
+		ts.put(new String(","), sCOMA);
 		
 		Simbolo sMENOS = new Simbolo(278,false);
-		ts.put(new StringBuffer("-"), sMENOS);
+		ts.put(new String("-"), sMENOS);
 		
 		Simbolo sPOR = new Simbolo(279,false);
-		ts.put(new StringBuffer("*"), sPOR);
+		ts.put(new String("*"), sPOR);
 		
 		Simbolo sDIV = new Simbolo(280,false);
-		ts.put(new StringBuffer("/"), sDIV);
+		ts.put(new String("/"), sDIV);
 		
 		Simbolo sMAS = new Simbolo(281,false);
-		ts.put(new StringBuffer("+"), sMAS);
+		ts.put(new String("+"), sMAS);
 		
 
 		Simbolo sFin = new Simbolo(283,false);
-		ts.put(new StringBuffer("fin de archivo"), sFin);
+		ts.put(new String("fin de archivo"), sFin);
 	}
 	
-	public void agregarSimbolo(StringBuffer buffer , Simbolo simb) { //agrego tokens
+	public void agregarSimbolo(String buffer , Simbolo simb) { //agrego tokens
 		ts.put(buffer, simb);
 	}
 	
-	public Simbolo obtenerSimbolo(StringBuffer buffer) { // Obtenes el token entero
-		return ts.get(buffer);
+	public Simbolo obtenerSimbolo(String buffer) { // Obtenes el token entero
+		Simbolo salida = ts.get(buffer);
+		return salida;
 	}
 	
-	public boolean perteneceTS(StringBuffer buffer){ //verificar existencia en ella
-		return ts.contains(buffer);
+	public boolean perteneceTS(String buffer){ //verificar existencia en ella
+		boolean asd = ts.containsKey(buffer);
+		return asd;
 	}
 	
 }
