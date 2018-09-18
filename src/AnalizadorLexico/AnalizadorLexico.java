@@ -171,15 +171,18 @@ public class AnalizadorLexico {
         if (c== '+')   return 16;
         return aux;
 	}
+	
 	public void AgregarSimbolo(String buffer, Simbolo simbolo) { //Carga la tabla de simbolos manualmente (por ejemplo las palabras reservadas)
 		if (!this.ts.perteneceTS(buffer)) {
 			this.ts.agregarSimbolo(buffer, simbolo);
 			System.out.println("agrego a la tabala de simboles porquee xcsribo mtan mal");
 		}
 	}
+	
 	public TablaDeSimbolos obtenerTS() {
 		return this.ts;
 	}
+	
 	public void decrementarIndice() {
 		this.indice--;
 	}
