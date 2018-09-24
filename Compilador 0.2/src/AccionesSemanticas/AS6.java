@@ -6,7 +6,7 @@ import AnalizadorLexico.Simbolo;
 
 
 public class AS6 extends AccionSemantica{
-	//Reconoce el Linteger y verifica rango, sino llama a error
+	//Reconoce el Linteger y verifica rango, sino agrega error
 	private final static double max = 2147483648.0;//era 47 pero como el negativo es mayor se toma en cuenta este numero.
 
 	public int ejecutar(char c, AnalizadorLexico AL) {

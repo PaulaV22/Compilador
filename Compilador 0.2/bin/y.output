@@ -1,0 +1,843 @@
+   0  $accept : programa $end
+
+   1  programa : sentDec sentEjec
+
+   2  sentDec : dVar
+   3          | sentDec dVar
+
+   4  sentEjec : sentencia ';'
+   5           | sentEjec sentencia ';'
+
+   6  dVar : tipo listVar ','
+   7       | LET MUT tipo listVarMut ','
+
+   8  listVar : ID
+   9          | listVar ';' ID
+
+  10  listVarMut : ID
+  11             | listVarMut ';' ID
+  12             | '*' ID
+
+  13  tipo : LINTEGER
+  14       | DOUBLE
+
+  15  sentencia : estructIf
+  16            | estructLoop
+  17            | asignacion
+  18            | imprimir
+
+  19  estructIf : IF '(' condicion ')' bloqueSent END_IF
+  20            | IF '(' condicion ')' bloqueSent ELSE bloqueSent END_IF
+
+  21  estructLoop : LOOP bloqueSent UNTIL '(' condicion ')' ','
+
+  22  bloqueSent : sentencia ';'
+  23             | '{' conjSent '}'
+
+  24  conjSent : sentencia ','
+  25           | conjSent sentencia ','
+
+  26  condicion : expresion comparador expresion
+
+  27  comparador : '<'
+  28             | '>'
+  29             | MENIGUAL
+  30             | MAYIGUAL
+  31             | '='
+  32             | DISTINTO
+
+  33  asignacion : ID ASIG expresion
+
+  34  expresion : expresion '+' termino
+  35            | expresion '-' termino
+  36            | termino
+
+  37  termino : termino '*' factor
+  38          | termino '/' factor
+  39          | factor
+
+  40  factor : ID
+  41         | CTE
+  42         | '-' CTE
+
+  43  imprimir : PRINT '(' CADENA ')'
+
+state 0
+	$accept : . programa $end  (0)
+
+	LINTEGER  shift 1
+	DOUBLE  shift 2
+	LET  shift 3
+	.  error
+
+	programa  goto 4
+	sentDec  goto 5
+	dVar  goto 6
+	tipo  goto 7
+
+
+state 1
+	tipo : LINTEGER .  (13)
+
+	.  reduce 13
+
+
+state 2
+	tipo : DOUBLE .  (14)
+
+	.  reduce 14
+
+
+state 3
+	dVar : LET . MUT tipo listVarMut ','  (7)
+
+	MUT  shift 8
+	.  error
+
+
+state 4
+	$accept : programa . $end  (0)
+
+	$end  accept
+
+
+state 5
+	programa : sentDec . sentEjec  (1)
+	sentDec : sentDec . dVar  (3)
+
+	ID  shift 9
+	IF  shift 10
+	PRINT  shift 11
+	LINTEGER  shift 1
+	DOUBLE  shift 2
+	LOOP  shift 12
+	LET  shift 3
+	.  error
+
+	sentEjec  goto 13
+	dVar  goto 14
+	sentencia  goto 15
+	tipo  goto 7
+	estructIf  goto 16
+	estructLoop  goto 17
+	asignacion  goto 18
+	imprimir  goto 19
+
+
+state 6
+	sentDec : dVar .  (2)
+
+	.  reduce 2
+
+
+state 7
+	dVar : tipo . listVar ','  (6)
+
+	ID  shift 20
+	.  error
+
+	listVar  goto 21
+
+
+state 8
+	dVar : LET MUT . tipo listVarMut ','  (7)
+
+	LINTEGER  shift 1
+	DOUBLE  shift 2
+	.  error
+
+	tipo  goto 22
+
+
+state 9
+	asignacion : ID . ASIG expresion  (33)
+
+	ASIG  shift 23
+	.  error
+
+
+state 10
+	estructIf : IF . '(' condicion ')' bloqueSent END_IF  (19)
+	estructIf : IF . '(' condicion ')' bloqueSent ELSE bloqueSent END_IF  (20)
+
+	'('  shift 24
+	.  error
+
+
+state 11
+	imprimir : PRINT . '(' CADENA ')'  (43)
+
+	'('  shift 25
+	.  error
+
+
+state 12
+	estructLoop : LOOP . bloqueSent UNTIL '(' condicion ')' ','  (21)
+
+	ID  shift 9
+	IF  shift 10
+	PRINT  shift 11
+	LOOP  shift 12
+	'{'  shift 26
+	.  error
+
+	sentencia  goto 27
+	estructIf  goto 16
+	estructLoop  goto 17
+	asignacion  goto 18
+	imprimir  goto 19
+	bloqueSent  goto 28
+
+
+state 13
+	programa : sentDec sentEjec .  (1)
+	sentEjec : sentEjec . sentencia ';'  (5)
+
+	ID  shift 9
+	IF  shift 10
+	PRINT  shift 11
+	LOOP  shift 12
+	$end  reduce 1
+
+	sentencia  goto 29
+	estructIf  goto 16
+	estructLoop  goto 17
+	asignacion  goto 18
+	imprimir  goto 19
+
+
+state 14
+	sentDec : sentDec dVar .  (3)
+
+	.  reduce 3
+
+
+state 15
+	sentEjec : sentencia . ';'  (4)
+
+	';'  shift 30
+	.  error
+
+
+state 16
+	sentencia : estructIf .  (15)
+
+	.  reduce 15
+
+
+state 17
+	sentencia : estructLoop .  (16)
+
+	.  reduce 16
+
+
+state 18
+	sentencia : asignacion .  (17)
+
+	.  reduce 17
+
+
+state 19
+	sentencia : imprimir .  (18)
+
+	.  reduce 18
+
+
+state 20
+	listVar : ID .  (8)
+
+	.  reduce 8
+
+
+state 21
+	dVar : tipo listVar . ','  (6)
+	listVar : listVar . ';' ID  (9)
+
+	';'  shift 31
+	','  shift 32
+	.  error
+
+
+state 22
+	dVar : LET MUT tipo . listVarMut ','  (7)
+
+	ID  shift 33
+	'*'  shift 34
+	.  error
+
+	listVarMut  goto 35
+
+
+state 23
+	asignacion : ID ASIG . expresion  (33)
+
+	ID  shift 36
+	CTE  shift 37
+	'-'  shift 38
+	.  error
+
+	expresion  goto 39
+	termino  goto 40
+	factor  goto 41
+
+
+state 24
+	estructIf : IF '(' . condicion ')' bloqueSent END_IF  (19)
+	estructIf : IF '(' . condicion ')' bloqueSent ELSE bloqueSent END_IF  (20)
+
+	ID  shift 36
+	CTE  shift 37
+	'-'  shift 38
+	.  error
+
+	condicion  goto 42
+	expresion  goto 43
+	termino  goto 40
+	factor  goto 41
+
+
+state 25
+	imprimir : PRINT '(' . CADENA ')'  (43)
+
+	CADENA  shift 44
+	.  error
+
+
+state 26
+	bloqueSent : '{' . conjSent '}'  (23)
+
+	ID  shift 9
+	IF  shift 10
+	PRINT  shift 11
+	LOOP  shift 12
+	.  error
+
+	sentencia  goto 45
+	estructIf  goto 16
+	estructLoop  goto 17
+	asignacion  goto 18
+	imprimir  goto 19
+	conjSent  goto 46
+
+
+state 27
+	bloqueSent : sentencia . ';'  (22)
+
+	';'  shift 47
+	.  error
+
+
+state 28
+	estructLoop : LOOP bloqueSent . UNTIL '(' condicion ')' ','  (21)
+
+	UNTIL  shift 48
+	.  error
+
+
+state 29
+	sentEjec : sentEjec sentencia . ';'  (5)
+
+	';'  shift 49
+	.  error
+
+
+state 30
+	sentEjec : sentencia ';' .  (4)
+
+	.  reduce 4
+
+
+state 31
+	listVar : listVar ';' . ID  (9)
+
+	ID  shift 50
+	.  error
+
+
+state 32
+	dVar : tipo listVar ',' .  (6)
+
+	.  reduce 6
+
+
+state 33
+	listVarMut : ID .  (10)
+
+	.  reduce 10
+
+
+state 34
+	listVarMut : '*' . ID  (12)
+
+	ID  shift 51
+	.  error
+
+
+state 35
+	dVar : LET MUT tipo listVarMut . ','  (7)
+	listVarMut : listVarMut . ';' ID  (11)
+
+	';'  shift 52
+	','  shift 53
+	.  error
+
+
+state 36
+	factor : ID .  (40)
+
+	.  reduce 40
+
+
+state 37
+	factor : CTE .  (41)
+
+	.  reduce 41
+
+
+state 38
+	factor : '-' . CTE  (42)
+
+	CTE  shift 54
+	.  error
+
+
+state 39
+	asignacion : ID ASIG expresion .  (33)
+	expresion : expresion . '+' termino  (34)
+	expresion : expresion . '-' termino  (35)
+
+	'+'  shift 55
+	'-'  shift 56
+	';'  reduce 33
+	','  reduce 33
+
+
+state 40
+	expresion : termino .  (36)
+	termino : termino . '*' factor  (37)
+	termino : termino . '/' factor  (38)
+
+	'*'  shift 57
+	'/'  shift 58
+	MAYIGUAL  reduce 36
+	MENIGUAL  reduce 36
+	DISTINTO  reduce 36
+	'+'  reduce 36
+	'-'  reduce 36
+	';'  reduce 36
+	','  reduce 36
+	')'  reduce 36
+	'<'  reduce 36
+	'>'  reduce 36
+	'='  reduce 36
+
+
+state 41
+	termino : factor .  (39)
+
+	.  reduce 39
+
+
+state 42
+	estructIf : IF '(' condicion . ')' bloqueSent END_IF  (19)
+	estructIf : IF '(' condicion . ')' bloqueSent ELSE bloqueSent END_IF  (20)
+
+	')'  shift 59
+	.  error
+
+
+state 43
+	condicion : expresion . comparador expresion  (26)
+	expresion : expresion . '+' termino  (34)
+	expresion : expresion . '-' termino  (35)
+
+	MAYIGUAL  shift 60
+	MENIGUAL  shift 61
+	DISTINTO  shift 62
+	'+'  shift 55
+	'-'  shift 56
+	'<'  shift 63
+	'>'  shift 64
+	'='  shift 65
+	.  error
+
+	comparador  goto 66
+
+
+state 44
+	imprimir : PRINT '(' CADENA . ')'  (43)
+
+	')'  shift 67
+	.  error
+
+
+state 45
+	conjSent : sentencia . ','  (24)
+
+	','  shift 68
+	.  error
+
+
+state 46
+	bloqueSent : '{' conjSent . '}'  (23)
+	conjSent : conjSent . sentencia ','  (25)
+
+	ID  shift 9
+	IF  shift 10
+	PRINT  shift 11
+	LOOP  shift 12
+	'}'  shift 69
+	.  error
+
+	sentencia  goto 70
+	estructIf  goto 16
+	estructLoop  goto 17
+	asignacion  goto 18
+	imprimir  goto 19
+
+
+state 47
+	bloqueSent : sentencia ';' .  (22)
+
+	.  reduce 22
+
+
+state 48
+	estructLoop : LOOP bloqueSent UNTIL . '(' condicion ')' ','  (21)
+
+	'('  shift 71
+	.  error
+
+
+state 49
+	sentEjec : sentEjec sentencia ';' .  (5)
+
+	.  reduce 5
+
+
+state 50
+	listVar : listVar ';' ID .  (9)
+
+	.  reduce 9
+
+
+state 51
+	listVarMut : '*' ID .  (12)
+
+	.  reduce 12
+
+
+state 52
+	listVarMut : listVarMut ';' . ID  (11)
+
+	ID  shift 72
+	.  error
+
+
+state 53
+	dVar : LET MUT tipo listVarMut ',' .  (7)
+
+	.  reduce 7
+
+
+state 54
+	factor : '-' CTE .  (42)
+
+	.  reduce 42
+
+
+state 55
+	expresion : expresion '+' . termino  (34)
+
+	ID  shift 36
+	CTE  shift 37
+	'-'  shift 38
+	.  error
+
+	termino  goto 73
+	factor  goto 41
+
+
+state 56
+	expresion : expresion '-' . termino  (35)
+
+	ID  shift 36
+	CTE  shift 37
+	'-'  shift 38
+	.  error
+
+	termino  goto 74
+	factor  goto 41
+
+
+state 57
+	termino : termino '*' . factor  (37)
+
+	ID  shift 36
+	CTE  shift 37
+	'-'  shift 38
+	.  error
+
+	factor  goto 75
+
+
+state 58
+	termino : termino '/' . factor  (38)
+
+	ID  shift 36
+	CTE  shift 37
+	'-'  shift 38
+	.  error
+
+	factor  goto 76
+
+
+state 59
+	estructIf : IF '(' condicion ')' . bloqueSent END_IF  (19)
+	estructIf : IF '(' condicion ')' . bloqueSent ELSE bloqueSent END_IF  (20)
+
+	ID  shift 9
+	IF  shift 10
+	PRINT  shift 11
+	LOOP  shift 12
+	'{'  shift 26
+	.  error
+
+	sentencia  goto 27
+	estructIf  goto 16
+	estructLoop  goto 17
+	asignacion  goto 18
+	imprimir  goto 19
+	bloqueSent  goto 77
+
+
+state 60
+	comparador : MAYIGUAL .  (30)
+
+	.  reduce 30
+
+
+state 61
+	comparador : MENIGUAL .  (29)
+
+	.  reduce 29
+
+
+state 62
+	comparador : DISTINTO .  (32)
+
+	.  reduce 32
+
+
+state 63
+	comparador : '<' .  (27)
+
+	.  reduce 27
+
+
+state 64
+	comparador : '>' .  (28)
+
+	.  reduce 28
+
+
+state 65
+	comparador : '=' .  (31)
+
+	.  reduce 31
+
+
+state 66
+	condicion : expresion comparador . expresion  (26)
+
+	ID  shift 36
+	CTE  shift 37
+	'-'  shift 38
+	.  error
+
+	expresion  goto 78
+	termino  goto 40
+	factor  goto 41
+
+
+state 67
+	imprimir : PRINT '(' CADENA ')' .  (43)
+
+	.  reduce 43
+
+
+state 68
+	conjSent : sentencia ',' .  (24)
+
+	.  reduce 24
+
+
+state 69
+	bloqueSent : '{' conjSent '}' .  (23)
+
+	.  reduce 23
+
+
+state 70
+	conjSent : conjSent sentencia . ','  (25)
+
+	','  shift 79
+	.  error
+
+
+state 71
+	estructLoop : LOOP bloqueSent UNTIL '(' . condicion ')' ','  (21)
+
+	ID  shift 36
+	CTE  shift 37
+	'-'  shift 38
+	.  error
+
+	condicion  goto 80
+	expresion  goto 43
+	termino  goto 40
+	factor  goto 41
+
+
+state 72
+	listVarMut : listVarMut ';' ID .  (11)
+
+	.  reduce 11
+
+
+state 73
+	expresion : expresion '+' termino .  (34)
+	termino : termino . '*' factor  (37)
+	termino : termino . '/' factor  (38)
+
+	'*'  shift 57
+	'/'  shift 58
+	MAYIGUAL  reduce 34
+	MENIGUAL  reduce 34
+	DISTINTO  reduce 34
+	'+'  reduce 34
+	'-'  reduce 34
+	';'  reduce 34
+	','  reduce 34
+	')'  reduce 34
+	'<'  reduce 34
+	'>'  reduce 34
+	'='  reduce 34
+
+
+state 74
+	expresion : expresion '-' termino .  (35)
+	termino : termino . '*' factor  (37)
+	termino : termino . '/' factor  (38)
+
+	'*'  shift 57
+	'/'  shift 58
+	MAYIGUAL  reduce 35
+	MENIGUAL  reduce 35
+	DISTINTO  reduce 35
+	'+'  reduce 35
+	'-'  reduce 35
+	';'  reduce 35
+	','  reduce 35
+	')'  reduce 35
+	'<'  reduce 35
+	'>'  reduce 35
+	'='  reduce 35
+
+
+state 75
+	termino : termino '*' factor .  (37)
+
+	.  reduce 37
+
+
+state 76
+	termino : termino '/' factor .  (38)
+
+	.  reduce 38
+
+
+state 77
+	estructIf : IF '(' condicion ')' bloqueSent . END_IF  (19)
+	estructIf : IF '(' condicion ')' bloqueSent . ELSE bloqueSent END_IF  (20)
+
+	ELSE  shift 81
+	END_IF  shift 82
+	.  error
+
+
+state 78
+	condicion : expresion comparador expresion .  (26)
+	expresion : expresion . '+' termino  (34)
+	expresion : expresion . '-' termino  (35)
+
+	'+'  shift 55
+	'-'  shift 56
+	')'  reduce 26
+
+
+state 79
+	conjSent : conjSent sentencia ',' .  (25)
+
+	.  reduce 25
+
+
+state 80
+	estructLoop : LOOP bloqueSent UNTIL '(' condicion . ')' ','  (21)
+
+	')'  shift 83
+	.  error
+
+
+state 81
+	estructIf : IF '(' condicion ')' bloqueSent ELSE . bloqueSent END_IF  (20)
+
+	ID  shift 9
+	IF  shift 10
+	PRINT  shift 11
+	LOOP  shift 12
+	'{'  shift 26
+	.  error
+
+	sentencia  goto 27
+	estructIf  goto 16
+	estructLoop  goto 17
+	asignacion  goto 18
+	imprimir  goto 19
+	bloqueSent  goto 84
+
+
+state 82
+	estructIf : IF '(' condicion ')' bloqueSent END_IF .  (19)
+
+	.  reduce 19
+
+
+state 83
+	estructLoop : LOOP bloqueSent UNTIL '(' condicion ')' . ','  (21)
+
+	','  shift 85
+	.  error
+
+
+state 84
+	estructIf : IF '(' condicion ')' bloqueSent ELSE bloqueSent . END_IF  (20)
+
+	END_IF  shift 86
+	.  error
+
+
+state 85
+	estructLoop : LOOP bloqueSent UNTIL '(' condicion ')' ',' .  (21)
+
+	.  reduce 21
+
+
+state 86
+	estructIf : IF '(' condicion ')' bloqueSent ELSE bloqueSent END_IF .  (20)
+
+	.  reduce 20
+
+
+33 terminals, 20 nonterminals
+44 grammar rules, 87 states

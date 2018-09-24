@@ -1,5 +1,6 @@
 
 %{
+package Parser;
 import AnalizadorLexico.AnalizadorLexico;
 import AnalizadorLexico.Simbolo;
 import AnalizadorLexico.Token;
@@ -7,7 +8,7 @@ import AnalizadorLexico.Token;
 %}
 
 
-%token ID CTE IF ELSE END_IF PRINT LINTEGER DOUBLE LOOP UNTIL LET MAYIGUAL MENIGUAL DISTINTO ASIG MUT EOF CADENA
+%token ID CTE ELSE END_IF PRINT LINTEGER DOUBLE LOOP UNTIL LET MAYIGUAL MENIGUAL IF DISTINTO ASIG MUT EOF CADENA ERROR
 		
 		
 %left '+' '-'
@@ -71,7 +72,7 @@ estructIf				: IF '(' condicion ')' bloqueSent END_IF
 
 
  
-estructLoop 			: LOOP  bloqueSent UNTIL '(' condicion ')'
+estructLoop 			: LOOP  bloqueSent UNTIL '(' condicion ')' ','
 						;
 
 
@@ -136,7 +137,7 @@ public void setAL(AnalizadorLexico al){
 }
 
 public int yylex(){
-	Simbolo s = this.al.getToken();
+	Simbolo s = this.al.getSimbolo();
 	Token t = new Token (s.getLexema(), al.getLinea());
     yylval = new ParserVal(t);
 	return s.getNumero();

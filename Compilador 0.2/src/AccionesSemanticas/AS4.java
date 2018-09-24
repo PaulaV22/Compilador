@@ -4,7 +4,7 @@ import AnalizadorLexico.AccionSemantica;
 import AnalizadorLexico.AnalizadorLexico;
 
 public class AS4 extends AccionSemantica{
-	//fin simbolo1: devuelve el literal y verifica si es algun simbolo valido(si esta en la ts)
+	//fin simbolo1: devuelve el literal y 
 	
 	//PREGUNTAR SI ESTA ACCION SEMANTICA ES NECESARIA, YA QUE SOLO SE VA A LLEGAR POR CAMINOS VALIDOS
 	

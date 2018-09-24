@@ -11,10 +11,10 @@ public class AS9 extends AccionSemantica{
 	public int ejecutar(char c, AnalizadorLexico AL) {
 		String buffer = AL.getBuffer();
 		String aux = buffer.substring(1, buffer.length());
-		Simbolo s = new Simbolo(285,false);
+		int codigo = AL.obtenerTS().obtenerSimbolo("cadena").getNumero(); //Busco valor de cadena
+		Simbolo s = new Simbolo(codigo,false, buffer);
 		AL.AgregarSimbolo(aux, s);
 		AL.setBuffer(aux);
-		System.out.println(aux);
 		return 0;
 	}
 }

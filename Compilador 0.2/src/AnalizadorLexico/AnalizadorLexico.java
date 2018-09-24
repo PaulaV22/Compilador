@@ -82,7 +82,7 @@ public class AnalizadorLexico {
 			{a2,a12,a12,a12,a12,a12,a12,a12,a12,a12,a2,a2,a12,a12,a2,a12,a12,aE},
 			{a8,a8,a8,a8,a8,a8,a8,a8,a8,a8,a8,a8,a8,a8,a8,a8,a8,aE}, //preguntar que onda con el guion y el /n
 			{aE,a2,aE,aE,aE,aE,aE,aE,aE,aE,a2,aE,a2,aE,aE,aE,aE,aE,aE},
-			{aE,aE,aE,aE,aE,aE,aE,aE,aE,aE,aE,aE,aE,aE,a6,aE,aE},
+			{aE,aE,aE,aE,aE,aE,aE,aE,aE,aE,aE,aE,aE,aE,a6,aE,aE,aE},
 			{a7,a2,a7,a7,a7,a7,a7,a7,a7,a7,a7,a2,a7,a7,a7,a7,a7,a7},
 			{a7,a2,a7,a7,a7,a7,a7,a7,a7,a2,a7,a7,a7,a7,a7,a7,a2,a7},
 			{a7,a2,a7,a7,a7,a7,a7,a7,a7,a7,a7,a7,a7,a7,a7,a7,a7,a7},
@@ -149,6 +149,12 @@ public class AnalizadorLexico {
 				int aux = buffer.charAt(0);
 				s = new Simbolo(aux, false);
 			}
+			else {
+				if (s== null && buffer.length() >1) {
+					Error e = errores.get(errores.size()-1);
+					s = new Simbolo(275, false, e.getLinea() + " " + e.getDetalle());
+				}
+			}
 			buffer = "";
 			return s;	
 		}
@@ -203,9 +209,11 @@ public class AnalizadorLexico {
 		linea++;
 	}
 
-	public void AgregarError(int linea, String detalle) {
+	public Simbolo AgregarError(int linea, String detalle) {
 		Error e = new Error(linea , detalle);
 		errores.add(e);
+		Simbolo salida = new Simbolo (275, false, detalle+ " " + linea);
+		return salida;
 	}
 	
 	public void setBuffer(String buffer) {
